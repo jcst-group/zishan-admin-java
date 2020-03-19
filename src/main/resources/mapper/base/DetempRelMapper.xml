@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nongxin.terminal.dao.base.DetempRelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nongxin.terminal.entity.base.DetempRel">
+        <id column="template_id" property="templateId" />
+        <result column="env_standards_id" property="envStandardsId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        template_id, env_standards_id
+    </sql>
+
+    <select id="selectByTemplateId" resultMap="BaseResultMap">
+        select * from nx_detemp_rel where template_id = #{templateId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

@@ -1,0 +1,16 @@
+saas:
+  saasHostList[0]:
+    host: zsback.gdnxeco.com
+    db: dn1
+  saasHostList[1]:
+    host: zsboard.gdnxeco.com
+    db: dn1
+  saasHostList[2]:
+    host: zstsboard.gdnxeco.com
+    db: dn2
+  saasHostList[3]:
+    host: zstsback.gdnxeco.com
+    db: dn2
+  saasHostList[4]:
+    host: 192.168.101.15:8084
+    db: dn2

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nongxin.terminal.dao.workorder.ZsWorkOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nongxin.terminal.entity.workorder.ZsWorkOrder">
+        <id column="id" property="id" />
+        <result column="work_order_name" property="workOrderName" />
+        <result column="work_order_content" property="workOrderContent" />
+        <result column="base_id" property="baseId" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <collection property="baseName" column="base_id" select="com.nongxin.terminal.dao.base.BaseInfoMapper.getBaseName"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, work_order_name, work_order_content, base_id, start_time, end_time
+    </sql>
+
+    <select id="getList" resultMap="BaseResultMap">
+      select * from nx_work_order
+        <where>
+            <if test="baseId!=null">
+                base_id = #{baseId,jdbcType=INTEGER}
+            </if>
+            <if test="startTime != null and endTime != null">
+                and start_time >= #{startTime,jdbcType=TIMESTAMP}
+                and date_add(#{endTime,jdbcType=TIMESTAMP},interval 1 day) > end_time
+            </if>
+        </where>
+        order by base_id desc,start_time asc
+    </select>
+
+    <select id="getListSort" resultMap="BaseResultMap">
+        select * from nx_work_order
+        <where>
+            <if test="baseId!=null">
+                base_id = #{baseId,jdbcType=INTEGER}
+            </if>
+            <if test="startTime != null and endTime != null">
+                and start_time >= #{startTime,jdbcType=TIMESTAMP}
+                and date_add(#{endTime,jdbcType=TIMESTAMP},interval 1 day) > end_time
+            </if>
+        </where>
+        order by start_time asc
+    </select>
+
+</mapper>

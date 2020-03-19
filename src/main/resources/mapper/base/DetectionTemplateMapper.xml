@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nongxin.terminal.dao.base.DetectionTemplateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nongxin.terminal.entity.base.DetectionTemplate">
+        <id column="id" property="id" />
+        <result column="template_name" property="templateName" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap2" type="com.nongxin.terminal.entity.base.DetectionTemplate">
+        <id column="id" property="id" />
+        <result column="template_name" property="templateName" />
+        <collection property="detempRel" column="id" select="com.nongxin.terminal.dao.base.DetempRelMapper.selectByTemplateId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, template_name
+    </sql>
+
+    <select id="getDetectionTemplate" resultMap="BaseResultMap2">
+      select * from nx_detection_template
+      <where>
+          <if test="templateName != null">
+            and position(#{templateName,jdbcType=VARCHAR} in template_name)
+          </if>
+      </where>
+      order by id desc
+    </select>
+
+</mapper>

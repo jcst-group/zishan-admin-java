@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nongxin.terminal.dao.company.PlatformInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nongxin.terminal.entity.company.PlatformInfo">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="login_name" property="loginName" />
+        <result column="copyright" property="copyright" />
+        <result column="icp" property="icp" />
+        <result column="type" property="type"/>
+        <result column="title" property="title"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap2" type="com.nongxin.terminal.entity.company.PlatformInfo">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="login_name" property="loginName" />
+        <result column="copyright" property="copyright" />
+        <result column="icp" property="icp" />
+        <result column="type" property="type"/>
+        <result column="title" property="title"/>
+        <collection property="ico" column="type" select="com.nongxin.terminal.dao.file.PictureInfoMapper.getLogoPic"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, login_name, copyright, icp, type, title
+    </sql>
+
+    <select id="getlist" resultMap="BaseResultMap2">
+        select * from nx_platform_info
+    </select>
+
+    <select id="getInfoByType" resultMap="BaseResultMap2">
+        select * from nx_platform_info where type = #{type,jdbcType=VARCHAR}
+    </select>
+</mapper>
